@@ -48,7 +48,7 @@ export default function ProductClient({ product }: ProductClientProps) {
             <div className="flex flex-wrap gap-3">
               {product.variants.map((variant) => (
                 <button key={variant.id} onClick={() => handleVariantChange(variant)}
-                  className={`flex-1 min-w-[140px] p-3 rounded-lg border-2 text-left transition-all duration-200 
+                  className={`flex-1 min-w-[140px] p-3 rounded-lg border-2 text-left cursor-pointer transition-all duration-200 
                     ${
                       selectedVariant.id === variant.id
                         ? 'border-blue-600 bg-blue-50'
@@ -102,7 +102,7 @@ export default function ProductClient({ product }: ProductClientProps) {
         <div className="grid md:grid-cols-3 gap-4 mb-6">
           {selectedVariant.emiPlans.map((plan) => (
             <button key={plan.id} onClick={() => setSelectedEMIPlan(plan)}
-              className={`p-5 rounded-xl border-2 text-left transition-all flex flex-col justify-between h-full ${
+              className={`p-5 rounded-xl border-2 text-left transition-all flex flex-col justify-between cursor-pointer h-full ${
                 selectedEMIPlan.id === plan.id
                   ? 'border-blue-600 bg-white shadow-lg'
                   : 'border-gray-200 bg-white hover:border-gray-300'
@@ -145,7 +145,7 @@ export default function ProductClient({ product }: ProductClientProps) {
         </div>
 
         <button onClick={handleProceed}
-          className="w-full py-3 bg-blue-600 text-white text-lg font-semibold rounded-xl hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl">
+          className="w-full py-3 bg-blue-600 text-white text-lg font-semibold rounded-xl hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl cursor-pointer">
           Proceed with Selected Plan
         </button>
 
