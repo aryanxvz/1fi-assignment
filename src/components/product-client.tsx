@@ -2,20 +2,26 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { Check, Tag, TrendingUp } from 'lucide-react';
-import { Product, Variant, EMIPlan } from '@/app/types';
+import { Product, Variant, EMIPlan } from '@prisma/client';
+
+type ProductWithRelations = Product & {
+  variants: (Variant & {
+    emiPlans: EMIPlan[];
+  })[];
+};
 
 interface ProductClientProps {
-  product: Product;
+  product: ProductWithRelations;
 }
 
 export default function ProductClient({ product }: ProductClientProps) {
-  const [selectedVariant, setSelectedVariant] = useState<Variant>(product.variants[0]);
-  const [selectedEMIPlan, setSelectedEMIPlan] = useState<EMIPlan>(product.variants[0].emiPlans[0]);
+  const [selectedVariant, setSelectedVariant] = useState(product.variants[0]);
+  const [selectedEMIPlan, setSelectedEMIPlan] = useState(product.variants[0].emiPlans[0]);
 
   const discount = selectedVariant.mrp - selectedVariant.price;
   const discountPercent = Math.round((discount / selectedVariant.mrp) * 100);
 
-  const handleVariantChange = (variant: Variant) => {
+  const handleVariantChange = (variant: typeof selectedVariant) => {
     setSelectedVariant(variant);
     setSelectedEMIPlan(variant.emiPlans[0]);
   };
@@ -32,6 +38,7 @@ export default function ProductClient({ product }: ProductClientProps) {
           <Image
             src={selectedVariant.imageUrl} alt={selectedVariant.name} fill
             className="object-contain p-8"
+            priority
           />
         </div>
 

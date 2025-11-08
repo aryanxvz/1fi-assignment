@@ -1,6 +1,7 @@
 export const runtime = 'nodejs';
 import Link from 'next/link';
 import Image from 'next/image';
+import { prisma } from '@/lib/prisma';
 import { Product } from './types';
 
 export default async function Home() {
@@ -70,13 +71,18 @@ export default async function Home() {
 }
 
 async function getProducts(): Promise<Product[]> {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/products`, {
-    cache: 'no-store',
+  const products = await prisma.product.findMany({
+    include: {
+      variants: {
+        include: {
+          emiPlans: true,
+        },
+      },
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
   });
-  
-  if (!res.ok) {
-    throw new Error('Failed to fetch products');
-  }
-  
-  return res.json();
+
+  return products as Product[];
 }
