@@ -4,8 +4,8 @@ A modern full-stack web application for browsing premium smartphones with flexib
 
 ## Live Demo
 
-- **Deployed URL**: 
-- **Demo Video**: 
+- **Deployed URL**: [1fi-assignment.vercel.app](https://1fi-assignment.vercel.app/)
+- **Demo Video**: [DEMO URL](https://drive.google.com/file/d/1Ik_UreeEximPQyD4BNx-GY421dYpzvMO/view?usp=sharing)
 
 ## Features
 
